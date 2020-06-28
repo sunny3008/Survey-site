@@ -1,0 +1,62 @@
+<% include header.ejs %>
+<link rel="stylesheet" href="/css/style.css">
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#form2").submit(function (event) {
+      event.preventDefault();
+
+      $.ajax({
+        type: "POST",
+        url: "/admin/addquest",
+        data: $("#form2").serialize(),
+        dataType: "json",
+        success: function (response) {
+          //alert("a");
+          // console.log(response.Success);
+          $("#form2")[0].reset();
+
+          document.getElementById("check").innerHTML = response.Success;
+          //ADD THIS CODE
+          setTimeout(function () {
+            document.getElementById("check").innerHTML = "";
+          }, 3000);
+          if (response.Success == "Question Added") {
+            document.getElementById("aa").click();
+          }
+        },
+        error: function () { }
+      });
+    });
+  });
+</script>
+
+<body  >
+
+<div class="col-md-4 col-md-offset-4">
+  <div>
+    <p>Add Question</p>
+  </div>
+  <div class="form-group">
+    <form id="form2" method="post">
+      <input type="question" name="question" placeholder="Question" required="" class="form-control" /><br>
+      <select class="custom-select" id="type" name="type">
+        <option selected>Question Type...</option>
+        <option value="Depression">Depression</option>
+        <option value="Anxiety">Anxiety</option>
+      </select>
+      <br><br>
+      <input type="subtype" name="subtype" placeholder="Quetion SubType" required="" class="form-control" /><br>
+
+      <br />
+      <input type="submit" value="Submit" class="btn btn-success" onclick="javascript:window.location = '/admin'" />
+    </form>
+  </div>
+
+  <div class="mssg bg-danger">
+    <span id="check"></span>
+  </div>
+  <div id="LangTable"><a href="/admin" id="aa"></a></div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<% include header.ejs %>
+<link rel="stylesheet" href="/css/style.css">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <hr>
+            <table style="background-color:lightgreen" class="table table-hover table-bordered table-striped">
+                <h4 style="color: red;">Result</h4>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">email</th>
+                        <th scope="col">Depression Frequency</th>
+                        <th scope="col">Anxiety frequency</th>
+                        <th scope="col">Depression Intensity</th>
+                        <th scope="col">Anxiety Intensity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0 ; i < scores.length; i++) { %>
+                    <tr>
+                        <th scope="row">
+                            <%= i+1 %>
+                        </th>
+                        <td>
+                            <%= scores[i].email%>
+                        </td>
+                        <td>
+                            <%= scores[i].drep_freq%>
+                        </td>
+                        <td>
+                            <%= scores[i].anxi_freq%>
+                        </td>
+                        <td>
+                            <%= scores[i].drep_inten%>
+                        </td>
+                        <td>
+                            <%= scores[i].anxi_inten%>
+                        </td>
+                        
+                    </tr>
+                    <% }%>
+                </tbody>
+            </table>
+
+
+            <button type="button" class="btn btn-danger float-right" onclick="javascript:window.location = '/admin/download';">
+                Download Report</button>
+        </div>
+
+    </div>
+</div>
+</html>

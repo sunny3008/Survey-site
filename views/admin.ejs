@@ -1,0 +1,102 @@
+<% include header.ejs %>
+<link rel="stylesheet" href="/css/style.css">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+            <button type="button" class="btn btn-warning" id="table_view_btn"
+                onclick="javascript:window.location = '/admin/addquest';">ADD Question</button>
+            <button type="button" class="btn btn-danger float-right" onclick="javascript:window.location = '/';">
+                Logout</button>
+                <br>
+                <br>
+            <button type="button" class="btn btn-warning" onclick="javascript:window.location = '/admin/aresult';" >Result</button>
+
+            <hr>
+            <table style="background-color:lightgreen" class="table table-hover table-bordered table-striped">
+                <h4 style="color: red;">Questions</h4>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Question</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0 ; i < questions.length; i++) { %>
+                    <tr onclick="window.location='/admin/deletequestion/<%= questions[i]._id%>';"
+                        style="cursor: pointer;">
+                        <th scope="row">
+                            <%= i+1 %>
+                        </th>
+                        <td>
+                            <%= questions[i].question%>
+                        </td>
+                        <td>
+                            Delete
+                        </td>
+                    </tr>
+                    <% }%>
+                </tbody>
+            </table>
+            <div id="voter_table">
+                <table style="background-color:lightgreen" class="table table-hover table-bordered table-striped">
+                    <h4 style="color: red;">Users</h4>
+
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0 ; i < users.length; i++) { %>
+                        <th scope="row">
+                            <%= i+1 %>
+                        </th>
+                        <td>
+                            <%= users[i].username%>
+                        </td>
+                        <td>
+                            <%= users[i].email%>
+                        </td>
+                        </tr>
+                        <% }%>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="candidate_table" style="display:none;">
+                <!-- <div>
+                        <h3>Add Candidate</h3>
+                        <form method="post" action="/addcandidate" class="form-inline">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="cand_name" name="cand_name" placeholder="Enter Name">
+                            </div>
+                            <div class="form-group">
+                                <select class="custom-select form-control" id="cand_constituency" name="cand_constituency">
+                                    <option selected>Constituency</option>
+                                    <option value="Jabalpur">Jabalpur</option>
+                                    <option value="Delhi">Delhi</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary form-control">Add Candidate</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <hr> -->
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

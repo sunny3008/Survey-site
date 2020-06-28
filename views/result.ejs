@@ -1,0 +1,135 @@
+<html>
+<title>Thank you</title>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        function tmt(){
+            var l=parseInt("<%= dfreq %>")+parseInt("<%= dfreq %>")+parseInt("<%= dfreq %>")+parseInt("<%= dfreq %>")
+            console.log(l)
+            if((l/4)>15){ 
+            setTimeout(function(){
+        alert('You Are Eligible For Next Phase');
+        }, 5000);
+        document.getElementById("nextphase").disabled = false;
+        }
+        else{
+            setTimeout(function(){
+        alert('Your Not Eligible For Next Phase');
+        }, 5000);
+        }
+    }
+        window.onload=tmt;
+    </script>
+    <script type="text/javascript">
+        var k= "<%= dfreq %>"*5;
+        var j="<%= dfreq %>";
+        var i = 0;
+        function makeProgress3() {
+            if (i < "<%= dfreq %>"*5) {
+                i = i + 1;
+                $(".dfreq").css("width", i + "%").text(i /5+ "  out of 20");
+            }
+            // Wait for sometime before running this script again
+            setTimeout("makeProgress3()", 100);
+        }
+        makeProgress3();
+    </script>
+
+    <script type="text/javascript">
+        var i = 0;
+        function makeProgress2() {
+            if (i < "<%= dinten %>"*5) {
+                i = i + 1;
+                $(".dinten").css("width", i + "%").text(i/5 + " out of 20");
+            }
+            // Wait for sometime before running this script again
+            setTimeout("makeProgress2()", 100);
+        }
+        makeProgress2();
+    </script>
+    <script type="text/javascript">
+        var i = 0;
+        function makeProgress1() {
+            if (i < "<%= afreq %>"*5) {
+                i = i + 1;
+                $(".afreq").css("width", i + "%").text(i/5 + " out of 20");
+            }
+            // Wait for sometime before running this script again
+            setTimeout("makeProgress1()", 100);
+        }
+        makeProgress1();
+    </script>
+
+    <script type="text/javascript">
+        var i = 0;
+        function makeProgress() {
+            if (i < "<%= ainten %>"*5) {
+                i = i + 1;
+                $(".ainten").css("width", i + "%").text(i/5 + " out of 20");
+            }
+            // Wait for sometime before running this script again
+            setTimeout("makeProgress()", 100);
+        }
+        makeProgress();
+    </script>
+</head>
+
+<body background="ty.jpg">
+    <div class="jumbotron text-center">
+        <h1> Frequency Of Depression</h1><br />
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated dfreq" role="progressbar"
+                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" >
+                <%= dfreq %>%
+            </div>
+        </div>
+
+
+
+        <br /><br />
+        <h1> Frequency of Anixiety</h1>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning afreq" role="progressbar"
+                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div>
+
+
+        <br /><br />
+        <h1> Intensity of Depression</h1>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger dinten" role="progressbar"
+                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" >
+            </div>
+        </div>
+
+
+        <br /><br />
+        <h1> Intensity of Anixiety</h1>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success ainten " role="progressbar"
+                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" >
+            </div>
+        </div>
+
+
+        <button id="nextphase" disabled>Next</button><br>
+
+        <a href="">Contact us</a></p>
+        <p class="lead">
+            <a class="btn btn-primary btn-sm" href="/logout" role="button">Logout</a>
+        </p>
+    </div>
+</body>
+
+</html>

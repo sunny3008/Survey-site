@@ -1,0 +1,222 @@
+<html>
+
+<head>
+  <title>Survey</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+    function displayRadioValue(column) {
+      var ele = document.getElementsByName(column);
+
+      for (i = 0; i < ele.length; i++) {
+        if (ele[i].checked) {
+          // document.getElementById("result").innerHTML
+          // = "Gender: "+ele[i].value;
+          return ele[i].value;
+        }
+      }
+    }
+  </script>
+
+  <script type="text/javascript">
+    function EnableDisableButton() {
+
+      var chkYes = document.getElementsByName("Frequency");
+      console.log(chkYes)
+      var next = document.getElementById("next");
+      next.disabled = chkYes.checked ? false : true;
+      if (!next.disabled) {
+        next.focus();
+      }
+    }
+  </script>
+
+</head>
+
+<body background="https://i.pinimg.com/originals/77/1a/09/771a09457de61ba6516d93337081348b.jpg">
+  <!--<div class="col-md-4 col-md-offset-4">-->
+  <div>
+    <div class="text-center">
+      <h1>
+        <p style="color: red;">Survey Details</p>
+      </h1>>
+    </div>
+    <div class=" text-center">
+      <p style="color: white;">User: <%= user.email%></p>
+    </div>
+    <br />
+    <br />
+    <div style="color: burlywood ;margin-left: 100px;">
+      <% for (var i = 0; i < surveys.length; i++) { %>
+      <p>
+        <h1>Q. <%= surveys[i].question %></h1>
+      </p>
+      <% } %>
+    </div>
+
+
+    <!-- <h1><%= surveys[0].question %></h1>-->
+    </br>
+    </br>
+
+
+    <form id="form1" submit="/insertres" method="GET">
+      <div class=" container ">
+        <div class="row">
+          <div class="col-sm-4 h1">
+            <div style="color:lightsalmon;">
+              <h2>frequency</h2>
+              <p style="font-size: medium;"> <input type="radio" id="Never" name="frequency" value="Never" required />
+                <label for="Never">Never</label></p>
+
+              <p style="font-size: medium;"> <input type="radio" id="Rarely" name="frequency" value="Rarely" />
+                <label for="Rarely">Rarely</label></p>
+
+              <p style="font-size: medium;"><input type="radio" id="Occasionally" name="frequency"
+                  value="Occasionally" />
+                <label for="Occasionally">Occasionally</label></p>
+
+              <p style="font-size: medium;"><input type="radio" id="Many times" name="frequency" value="Many times" />
+                <label for="Many times">Many times</label></p>
+
+              <p style="font-size: medium;"><input type="radio" id="All of the time" name="frequency"
+                  value="All Of the time" />
+                <label for="All of the time">All Of the time</label></p>
+            </div>
+          </div>
+
+
+          <div class="col-sm-4 h1">
+            <div style="color:lightsalmon;">
+              <h2>Intensity</h2>
+              <p style="font-size: medium;"><input type="radio" id="No" name="intensity" value="No" required />
+                <label for="No">No</label></p>
+
+              <p style="font-size: medium;"><input type="radio" id="Mild" name="intensity" value="Mild" />
+                <label for="Mild">Mild</label></p>
+
+              <p style="font-size: medium;"> <input type="radio" id="Moderate" name="intensity" value="Moderate" />
+                <label for="Moderate">Moderate</label></p>
+
+              <p style="font-size: medium;"> <input type="radio" id="Severe" name="intensity" value="Severe" />
+                <label for="Severe">Severe</label></p>
+
+              <p style="font-size: medium;"><input type="radio" id="Profound" name="intensity" value="Profound" />
+                <label for="Profound">Profound</label></p>
+            </div>
+          </div>
+        </div>
+
+
+        <!--- <button
+            type="button"
+            onclick="window.location='/insertres/<%= user.email%>/<%= surveys[0].question%>/<%= current%>/'+displayRadioValue('gender')+'/'+displayRadioValue('frequency')"
+            style="cursor: pointer;"
+          >
+         submit</button>-->
+      </div>
+      <br />
+      <ul class="pager">
+        <% if(pages>0) {%> <% var i =(Number(current)) %> <% if (i == 1) { %>
+        <!--- <li class="disabled"><a><button type="button">Prev</button></a></li>-->
+        <% } else { %>
+        <li class="previous" style="margin-right: 100px;"><button type="button" class="btn btn-primary"
+            onclick="window.location='/survey/<%= i-1%>'">prev </button></a></li>
+        <% } %> <% if (i==pages) { %>
+        <li><button type="button" class="btn btn-warning"
+            onclick="window.location='/submitsurvey/<%= user.email%>/<%=surveys[0].question %>/<%= surveys[0].type%>/<%= surveys[0].sub_type %>/<%= current%>/'+displayRadioValue('frequency')+'/'+displayRadioValue('intensity')">Submit</button>
+        </li>
+        <% } else { %>
+        <li class="next"><button class="btn btn-primary" type="button" id="next"
+            onclick="window.location='/insertres/<%= user.email%>/<%= surveys[0].question%>/<%= surveys[0].type %>/<%= surveys[0].sub_type %>/<%= current%>/'+displayRadioValue('frequency')+'/'+displayRadioValue('intensity')"
+            style="cursor: pointer;">Next</button></li>
+        <%}%> <%}%>
+      </ul>
+    </form>
+
+    <br />
+
+
+    <div class="text-center">
+      <% if (pages > 0) { %>
+      <ul class="pagination text-center">
+        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+        <% if (i !== 1) { %>
+        <li class="disabled"><a class="right carousel-control">...</a></li>
+        <% } %>
+        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+        <% if (i == current) { %>
+        <li class=" active"><a class=" img-circle right carousel-control"><%= i %></a></li>
+        <% } else { %>
+        <li class=""><a class="img-circle right carousel-control "><%= i %></a></li>
+        <% } %>
+        <% if (i == Number(current) + 4 && i < pages) { %>
+        <li class=""><a class="left carousel-control">...</a></li>
+        <% } %>
+        <% } %>
+
+      </ul>
+      <% } %>
+    </div>
+
+
+    <br />
+    <!--<ul class="pager">
+      <% if(pages>0) {%> <% var i =(Number(current)) %> <% if (i == 1) { %>
+       <!--- <li class="disabled"><a><button type="button">Prev</button></a></li>-->
+    <!--<% } else { %>
+      <li class="previous"><a href="/survey/<%= i-1%>"><button type="button">prev </button></a></li>
+      <% } %> <% if (i==pages) { %>
+      <li ><a> <button type="button" class="btn btn-warning" onclick="window.location='/submitsurvey/<%= user.email%>/<%= surveys[0].question%>/<%= current%>/'+displayRadioValue('frequency')+'/'+displayRadioValue('intensity')">Submit</button></a></li>
+      <% } else { %>
+      <li class="next"><button class="btn btn-primary" type="button"  onclick="window.location='/insertres/<%= user.email%>/<%= surveys[0].question%>/<%= current%>/'+displayRadioValue('frequency')+'/'+displayRadioValue('intensity')"
+        style="cursor: pointer;">Next</button></li>
+      <%}%> <%}%>
+      </ul>-->
+
+    <!--- <div>
+        <div class="form-group">
+         
+            <center>
+              <% if(surveys.length>0) {%> <% surveys.forEach(function(survey){%>
+              <%= survey.unique_id%> <%= survey.question%> <br />
+              <form id="form1" action="/insertres" method="post">
+              <input type="radio" id="male" name="gender" value="male" />
+              <label for="male">Male</label><br />
+              <input type="radio" id="female" name="gender" value="female" />
+              <label for="female">Female</label><br />
+              <input type="radio" id="other" name="gender" value="other" />
+
+
+              <input type="radio" id="male" name="frequency" value="male" />
+              <label for="male">Male</label><br />
+              <input type="radio" id="female" name="frequency" value="female" />
+              <label for="female">Female</label><br />
+              <input type="radio" id="other" name="frequency" value="other" />
+              <button
+                type="button"
+                onclick="window.location='/insertres/<%= user.email%>/<%= survey.question%>/'+displayRadioValue('gender')+'/'+displayRadioValue('frequency')"
+                style="cursor: pointer;"
+              >
+            </form>
+                submit</button
+              ><br />
+              <label for="other">Other</label><br />
+              <% })}else {%> Sunny <%}%>
+            </center>
+          
+        </div>
+      </div>-->
+    <!---  <a href="/survey">
+      <button type="button" class="btn btn-warning" id="table_view_btn">
+        Submit
+      </button>
+    </a>-->
+
+    <!---  </div>-->
+  </div>
+</body>
+
+</html>
